@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
@@ -13,7 +14,7 @@ public class TestBase {
 
 
 	@Before
-	public void setup() throws Exception {
+	public void setUp() throws Exception {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 
 		capabilities.setCapability("platformName", "Android");
@@ -25,10 +26,15 @@ public class TestBase {
 		capabilities.setCapability("app", "D:\\learn_qa\\Kastro_learn_qa_javaAppiumAutomation_hw2\\apks\\org.wikipedia.apk");
 
 		driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
+		this.rotateScreenPortrait();
 	}
 
 	@After
 	public void tearsDown() {
 		driver.quit();
+	}
+
+	protected void rotateScreenPortrait() {
+		driver.rotate(ScreenOrientation.PORTRAIT);
 	}
 }
